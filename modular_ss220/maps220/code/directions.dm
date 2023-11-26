@@ -498,6 +498,21 @@
 	pixel_x = 24
 	dir = 4
 
+/obj/machinery/power/apc/empty_charge
+	start_charge = 0
+
+/obj/machinery/power/apc/empty_charge/north
+	pixel_y = 24
+	dir = 1
+
+/obj/machinery/power/apc/empty_charge/west
+	pixel_x = -24
+	dir = 8
+
+/obj/machinery/power/apc/empty_charge/east
+	pixel_x = 24
+	dir = 4
+
 /obj/machinery/power/apc/off_station/south
 	pixel_y = -24
 
