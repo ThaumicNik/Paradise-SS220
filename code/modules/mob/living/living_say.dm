@@ -112,7 +112,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			return FALSE
 
 	if(sanitize)
-		message = trim_strip_html_properly(message)
+		if(speaks_ooc)
+			if(GLOB.configuration.general.enable_ooc_emoji)
+				message = emoji_parse(sanitize(message))
+			else
+				message = sanitize(message)
+		else
+			message = sanitize_for_ic(message)
 
 	if(stat)
 		if(stat == DEAD)

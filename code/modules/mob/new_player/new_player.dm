@@ -31,7 +31,7 @@
 		privacy_consent()
 
 /mob/new_player/proc/privacy_consent()
-	var/output = GLOB.join_tos
+	var/output = "<!DOCTYPE html>[GLOB.join_tos]"
 	// Dont blank out the other window. This one is read only.
 	if(!GLOB.configuration.system.external_tos_handler)
 		src << browse(null, "window=playersetup")
@@ -148,8 +148,10 @@
 			ready = FALSE
 			return FALSE
 
-		if(!check_tts_seed_ready()) // SS220 ADDITION
+		// SS220 ADDITION START - TTS220
+		if(!check_tts_seed_ready())
 			return FALSE
+		// SS220 ADDITION END
 
 		ready = !ready
 		new_player_panel_proc()
@@ -227,7 +229,7 @@
 			to_chat(src, alert("You are currently not whitelisted to play [client.prefs.active_character.species]."))
 			return FALSE
 
-		if(!check_tts_seed_ready()) // SS220 ADDITION
+		if(!check_tts_seed_ready()) // SS220 ADDITION - TTS
 			return FALSE
 
 		LateChoices()
