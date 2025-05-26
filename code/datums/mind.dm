@@ -586,6 +586,7 @@
 	// SS220 EDIT - START
 	sections["blood_brother"] = memory_edit_blood_brother()
 	sections["vox_raider"] = memory_edit_vox_raider()
+	sections["shadowling"] = memory_edit_shadowling()
 	// SS220 EDIT - END
 	if(!issilicon(current))
 		/** CULT ***/

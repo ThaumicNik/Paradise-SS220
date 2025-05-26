@@ -28,6 +28,8 @@
 	if(result != "Да")
 		return FALSE
 
+	shadowling.Stun(INFINITY)	// Until hatching complete
+
 	for(var/obj/item/item in shadowling.get_equipped_items(include_pockets = TRUE))
 		shadowling.unEquip(item, TRUE)
 
@@ -42,7 +44,7 @@
 	for(var/obj/structure/alien/resin/wall/shadowling/R in shadowturf)
 		qdel(R)
 
-	// Temporal godmode and stun for shadowling
+	// Temporal godmode for shadowling
 
 	shadowling.dna.species.brute_mod = 0;
 	shadowling.dna.species.burn_mod = 0;
@@ -50,8 +52,8 @@
 	shadowling.dna.species.oxy_mod = 0;
 	shadowling.dna.species.clone_mod = 0;
 	shadowling.dna.species.brain_mod = 0;
-	shadowling.Stun(INFINITY)	// Until hatching complete
 
+	// Animation ahead
 	shadowling.visible_message(
 		span_warning("Тёмная мембрана образуется вокруг [shadowling]. Изнутри начинают доноситься странные булькающие звуки.."),
 		span_notice("Вы начинаете свою метаморфозу. Внутри этого кокона вы вскоре избавитесь от ограничевающей вас оболочки.")
@@ -84,8 +86,8 @@
 		playsound(resin, 'sound/effects/splat.ogg', 50, TRUE)
 		qdel(resin)
 
-	for(var/obj/structure/alien/weeds/node/node in shadowturf)
-		qdel(node)
+	for(var/obj/structure/alien/weeds/weeds in orange(shadowling, 1))
+		qdel(weeds)
 
 	// Transformation
 	shadowling.set_species(/datum/species/shadow/ling)
@@ -104,6 +106,7 @@
 	shadowling.underwear = "Nude"
 	shadowling.undershirt = "Nude"
 	shadowling.socks = "Nude"
+	shadowling.change_eye_color("#e20909")
 
 	shadowling.ExtinguishMob()
 	shadowling.set_nutrition(NUTRITION_LEVEL_FED + 50)

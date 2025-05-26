@@ -5,6 +5,7 @@
 	job_rank = ROLE_SHADOWLING
 	special_role = SPECIAL_ROLE_SHADOWLING
 	wiki_page_name = "Shadowlings"
+	var/datum/dna/original_dna
 
 /datum/antagonist/shadow_father
 	name = "Shadow Father"

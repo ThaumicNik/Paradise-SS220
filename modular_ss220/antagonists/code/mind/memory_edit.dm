@@ -34,6 +34,26 @@
 				var/turf/loc_spawn = get_turf(picked_landmark)
 				current.forceMove(loc_spawn)
 
+	if(href_list["shadowling"])
+		var/mob/living/carbon/human/human = current
+		if(!istype(human))
+			return
+		switch(href_list["shadowling"])
+			if("clear")
+				var/datum/antagonist/shadowling/shadowling_datum = has_antag_datum(/datum/antagonist/shadowling)
+				if(shadowling_datum)
+					if(shadowling_datum.original_dna)
+						var/result = tgui_alert(current, "Вернуть тенелингу изначальный облик?", "Вернуть облик?", list("Да", "Нет"))
+						if(result == "Да")
+							human.change_dna(shadowling_datum.original_dna, TRUE)
+					clear_antag_datum(/datum/antagonist/shadowling)
+				else if(has_antag_datum(/datum/antagonist/shadowling_thrall))
+					clear_antag_datum(/datum/antagonist/shadowling_thrall)
+			if("shadowling")
+				add_antag_datum(/datum/antagonist/shadowling)
+			if("thrall")
+				add_antag_datum(/datum/antagonist/shadowling_thrall)
+
 	. = ..()
 
 /datum/mind/proc/memory_edit_blood_brother()
@@ -54,6 +74,17 @@
 		. += "<a href='byond://?src=[UID()];vox_raider=make'>Make Vox Raider</a>"
 
 	. += _memory_edit_role_enabled(ROLE_VOX_RAIDER)
+
+/datum/mind/proc/memory_edit_shadowling()
+	. = _memory_edit_header("shadowling")
+	if(has_antag_datum(/datum/antagonist/shadowling))
+		. += "<b><font color='red'>SHADOWLING</font></b>|<a href='byond://?src=[UID()];shadowling=clear'>Remove</a>"
+	else if(has_antag_datum(/datum/antagonist/shadowling_thrall))
+		. += "<b><font color='red'>THRALL</font></b>|<a href='byond://?src=[UID()];shadowling=clear'>Remove</a>"
+	else
+		. += "<a href='byond://?src=[UID()];shadowling=shadowling'>Make Shadowling</a>|<a href='byond://?src=[UID()];shadowling=thrall'>Make Thrall</a>|<b>NO</b>"
+
+	. += _memory_edit_role_enabled(ROLE_BLOOD_BROTHER)
 
 // Если ОФФы добавят нового антагониста с разумом, то потребуется смещение (кто-нибудь дайте мне разума)
 // Используется в /datum/admins/proc/one_click_antag()
